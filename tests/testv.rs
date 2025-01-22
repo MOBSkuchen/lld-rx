@@ -4,7 +4,7 @@ mod tests {
 
     #[test]
     fn test_via_version() {
-        let res = link(LldFlavor::Coff, vec!["--version".to_string()].as_ref());
+        let res = link(LldFlavor::Coff, vec!["--version".to_string()]);
         res.debug_print();
     }
 }

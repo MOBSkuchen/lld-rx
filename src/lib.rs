@@ -47,7 +47,7 @@ impl LldResult {
     }
 }
 
-pub fn link(target: LldFlavor, args: &[String]) -> LldResult {
+pub fn link(target: LldFlavor, args: Vec<String>) -> LldResult {
     // Prepare arguments
     let c_args = args
         .iter()
