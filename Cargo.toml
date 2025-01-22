@@ -1,0 +1,11 @@
+[package]
+name = "linka"
+version = "0.1.0"
+edition = "2021"
+build = "build.rs"
+
+
+[build-dependencies]
+semver = "1.0.25"
+lazy_static = "1.5.0"
+cc = "1.2.10"
