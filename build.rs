@@ -5,12 +5,6 @@ use std::io::{self};
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-macro_rules! p {
-    ($($tokens: tt)*) => {
-        println!("cargo:warning={}", format!($($tokens)*))
-    }
-}
-
 lazy_static::lazy_static! {
     static ref CRATE_VERSION: Version = {
         let crate_version = Version::parse(env!("CARGO_PKG_VERSION"))
@@ -23,7 +17,7 @@ lazy_static::lazy_static! {
     };
 
     static ref LLVM_CONFIG_PATH: PathBuf = {
-        if let Some(path) = env::var_os(format!("DEP_LLVM_{}_CONFIG_PATH", CRATE_VERSION.major)) {
+        if let Some(path) = env::var_os("DEP_LLVM_CONFIG_PATH".to_string()) {
             path.into()
         } else {
             "llvm-config".into()
@@ -208,10 +202,6 @@ fn main() {
 
     println!("cargo:rerun-if-changed=wrapper/library.cpp");
 
-    if cfg!(feature = "no-llvm-linking") {
-        return;
-    }
-
     let libdir = llvm_config("--libdir");
 
     println!("cargo:config_path={}", LLVM_CONFIG_PATH.display());
@@ -223,7 +213,6 @@ fn main() {
         .iter()
         .filter(|n| !blacklist.iter().any(|blacklisted| n.contains(*blacklisted)))
     {
-        p!("{}", name);
         println!("cargo:rustc-link-lib=static={}", name);
     }
 
@@ -239,7 +228,7 @@ fn main() {
     if cfg!(target_env = "msvc") && (use_debug_msvcrt || is_llvm_debug()) {
         println!("cargo:rustc-link-lib=msvcrtd");
     }
-    
+
     // Special LLD libraries!
 
     println!("cargo:rustc-link-lib=static=lldWasm");
