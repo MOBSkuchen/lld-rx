@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use linka::{link, LldFlavor};
+    use lld_rx::{link, LldFlavor};
 
     #[test]
     fn test_via_version() {

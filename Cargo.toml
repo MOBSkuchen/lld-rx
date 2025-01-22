@@ -1,9 +1,12 @@
 [package]
-name = "linka"
+name = "lld-rx"
 version = "0.1.0"
 edition = "2021"
 build = "build.rs"
-
+license = "MIT"
+description = "Updated LLD bindings for Rust"
+repository = "https://github.com/MOBSkuchen/lld-rx"
+readme = "readme.md"
 
 [build-dependencies]
 semver = "1.0.25"
